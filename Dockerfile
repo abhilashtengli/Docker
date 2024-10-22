@@ -1,13 +1,18 @@
-FROM node:20
+  FROM node:20
 
-WORKDIR /app
+  WORKDIR /usr/src/app 
 
-COPY . .
+  COPY package* .
+  COPY ./prisma .    
 
-RUN npm install
-RUN npm run build
-RUN npx prisma generate 
+  RUN npm install
 
-EXPOSE 3001
+  RUN npx prisma generate 
 
-CMD ["node", "dist/index.js"]
+  COPY . .
+
+  RUN npm run build
+
+  EXPOSE 3001 
+
+  CMD ["node", "dist/index.js", ]
